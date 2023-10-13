@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="Shows the time and location depending on what province/territory is selected">
+	<title>Crazy Canadian Clock</title>
+	<!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	
+</head>
+
+<script type="text/javascript"
+     src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+<script type='text/javascript' src='/js/hide_answer.js'></script>
+
+<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({ TeX: { extensions: ["color.js", "cancel.js"] }});
+</script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<style>
+
+	body{
+	  margin:0;
+	}
+
+	nav{background-color:#338DFF;}
+	.center{font-size:50px; color:white; font-family:calibri; padding: 20px 20px; left: 50%;}
+	
+	#p1{
+		text-align:center;
+		font-size: 40px;
+	}
+	
+	/*Initializes a default background image and frame for all images to fit inside*/
+	#p2{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-image:url(ON.PNG);
+        background-size: contain;
+        width: 395px;
+        height: 430px;
+        border: 1px solid black;
+	}
+	
+	
+	/*Changes the orientation of the header depending on the device size*/
+	@media screen and (max-width: 615px) {
+        h1 {
+           text-align: center;
+        }
+      }
+
+</style>
+<body style="padding-top:120px;" onload="startTime()">
+<nav class="navbar navbar-fixed-top">
+	<div class="container-fluid">
+			 <div class="right">
+				<div class="center">Nicolas Cristiano</div>
+			</div>				
+		</div>
+</nav>
+
+<div class="container-fluid" style="padding-left:150px; padding-right:150px">
+<div class="row">
+<h1><b>Crazy Canadian Clock</b></h1>
+<p style="padding-top: 5px;"></p>
+<!--Gives the user a list of provinces/territories to choose from-->
+<b>Province/Territory:</b>
+<select name = "province" id = "province" onchange="myFunction()">
+<option value = "BC">British Columbia</option>
+<option value = "AB">Alberta</option>
+<option value = "SK">Saskatchewan</option>
+<option value = "MB">Manitoba</option>
+<option value = "ON" selected>Ontario</option>
+<option value = "QC">Quebec</option>
+<option value = "NB">New Brunswick</option>
+<option value = "NS">Nova Scotia</option>
+<option value = "PEI">Prince Edward Island</option>
+<option value = "NU">Nunavut</option>
+<option value = "YT">Yukon</option>
+<option value = "NT">Northwest Territories</option>
+<option value = "NL">Newfoundland and Labrador</option>
+</select>
+<p style="padding-top: 20px;" id="p1"></p>
+<p id="p2"></p>
+<script>
+<!--Selects the time (Hour, Minute, Second) depending on the province/territory and their corresponding timezones-->
+function startTime() {
+  var province = document.getElementById("province").value; //Passes through value from list
+  var timeZone;
+  const date = new Date(); //Creates constructor from Date Object 
+  const pacificTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Pacific"});
+  const mountainTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Mountain"});
+  const centralTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Central"});
+  const easternTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Eastern"});
+  const atlanticTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Atlantic"});
+  const newfieTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Newfoundland"});
+  
+  if(province == "BC"){timeZone = pacificTime;}
+  else if(province == "AB" || province == "YT" || province == "NT")
+  {timeZone = mountainTime;}
+  else if(province == "MB" || province == "SK"){timeZone = centralTime;}
+  else if(province == "ON" || province == "QC" || province == "NU")
+  {timeZone = easternTime;}
+  else if(province == "NB" || province == "NS" || province == "PEI")
+  {timeZone = atlanticTime;}
+  else if(province == "NL"){timeZone = newfieTime;}
+  
+  document.getElementById("p1").innerHTML = timeZone;//Answer is copied to Paragraph 1
+  
+  //Executes function once timer has expired
+  setTimeout(startTime, 1000);
+}
+
+//Adds leading 0's to values lower than 0
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+<!--Selects the location image depending on the province/territory selected and copies it to Paragraph 2
+function myFunction() {
+  var province = document.getElementById("province").value; //Passes through value from list
+  if(province){document.getElementById("p2").style.backgroundImage = "url("+province+".PNG)";} 
+}
+</script>
+</div></div>
+</body>
+</html>
