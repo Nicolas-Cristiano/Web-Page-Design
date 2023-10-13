@@ -102,7 +102,7 @@
 <p style="padding-top: 20px;" id="p1"></p>
 <p id="p2"></p>
 <script>
-<!--Selects the time (Hour, Minute, Second) depending on the province/territory and their corresponding timezones-->
+//Selects the time (Hour, Minute, Second) depending on the province/territory and their corresponding timezones
 function startTime() {
   var province = document.getElementById("province").value; //Passes through value from list
   var timeZone;
@@ -136,7 +136,7 @@ function checkTime(i) {
   return i;
 }
 
-<!--Selects the location image depending on the province/territory selected and copies it to Paragraph 2
+//Selects the location image depending on the province/territory selected and copies it to Paragraph 2
 function myFunction() {
   var province = document.getElementById("province").value; //Passes through value from list
   if(province){document.getElementById("p2").style.backgroundImage = "url("+province+".PNG)";} 
