@@ -47,6 +47,26 @@
 		text-align:center;
 		font-size: 40px;
 	}
+	
+	/*Initializes a default background image and frame for all images to fit inside*/
+	#p2{
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		background-image:url(ON.PNG);
+        background-size: contain;
+        width: 395px;
+        height: 430px;
+        border: 1px solid black;
+	}
+	
+	
+	/*Changes the orientation of the header depending on the device size*/
+	@media screen and (max-width: 615px) {
+        h1 {
+           text-align: center;
+        }
+      }
 
 </style>
 <body style="padding-top:120px;" onload="startTime()">
@@ -61,7 +81,67 @@
 <div class="container-fluid" style="padding-left:150px; padding-right:150px">
 <div class="row">
 <h1><b>Crazy Canadian Clock</b></h1>
-<h2>Hello World!!</h2>
+<p style="padding-top: 5px;"></p>
+<!--Gives the user a list of provinces/territories to choose from-->
+<b>Province/Territory:</b>
+<select name = "province" id = "province" onchange="myFunction()">
+<option value = "BC">British Columbia</option>
+<option value = "AB">Alberta</option>
+<option value = "SK">Saskatchewan</option>
+<option value = "MB">Manitoba</option>
+<option value = "ON" selected>Ontario</option>
+<option value = "QC">Quebec</option>
+<option value = "NB">New Brunswick</option>
+<option value = "NS">Nova Scotia</option>
+<option value = "PEI">Prince Edward Island</option>
+<option value = "NV">Nunavut</option>
+<option value = "YK">Yukon</option>
+<option value = "NT">Northwest Territories</option>
+<option value = "NL">Newfoundland and Labrador</option>
+</select>
+<p style="padding-top: 20px;" id="p1"></p>
+<p id="p2"></p>
+<script>
+//Selects the time (Hour, Minute, Second) depending on the province/territory and their corresponding timezones
+function startTime() {
+  var province = document.getElementById("province").value; //Passes through value from list
+  var timeZone;
+  const date = new Date(); //Creates constructor from Date Object 
+  const pacificTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Pacific"});
+  const mountainTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Mountain"});
+  const centralTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Central"});
+  const easternTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Eastern"});
+  const atlanticTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Atlantic"});
+  const newfieTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Newfoundland"});
+  
+  if(province == "BC"){timeZone = pacificTime;}
+  else if(province == "AB" || province == "YK" || province == "NT")
+  {timeZone = mountainTime;}
+  else if(province == "MB" || province == "SK"){timeZone = centralTime;}
+  else if(province == "ON" || province == "QC" || province == "NV")
+  {timeZone = easternTime;}
+  else if(province == "NB" || province == "NS" || province == "PEI")
+  {timeZone = atlanticTime;}
+  else if(province == "NL"){timeZone = newfieTime;}
+  
+  document.getElementById("p1").innerHTML = timeZone;//Answer is copied to Paragraph 1
+  
+  //Executes function once timer has expired
+  setTimeout(startTime, 1000);
+}
+
+//Adds leading 0's to values lower than 0
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+
+//Selects the location image depending on the province/territory selected and copies it to Paragraph 2
+function myFunction() {
+  var province = document.getElementById("province").value; //Passes through value from list
+  if(province){document.getElementById("p2").style.backgroundImage = "url("+province+".PNG)";} 
+}
+</script>
 </div></div>
 </body>
 </html>
