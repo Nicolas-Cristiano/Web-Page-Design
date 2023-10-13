@@ -47,26 +47,6 @@
 		text-align:center;
 		font-size: 40px;
 	}
-	
-	/*Initializes a default background image and frame for all images to fit inside*/
-	#p2{
-		display: block;
-		margin-left: auto;
-		margin-right: auto;
-		background-image:url(ON.PNG);
-        background-size: contain;
-        width: 395px;
-        height: 430px;
-        border: 1px solid black;
-	}
-	
-	
-	/*Changes the orientation of the header depending on the device size*/
-	@media screen and (max-width: 615px) {
-        h1 {
-           text-align: center;
-        }
-      }
 
 </style>
 <body style="padding-top:120px;" onload="startTime()">
@@ -136,11 +116,6 @@ function checkTime(i) {
   return i;
 }
 
-//Selects the location image depending on the province/territory selected and copies it to Paragraph 2
-function myFunction() {
-  var province = document.getElementById("province").value; //Passes through value from list
-  if(province){document.getElementById("p2").style.backgroundImage = "url("+province+".PNG)";} 
-}
 </script>
 </div></div>
 </body>
