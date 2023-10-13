@@ -94,8 +94,8 @@
 <option value = "NB">New Brunswick</option>
 <option value = "NS">Nova Scotia</option>
 <option value = "PEI">Prince Edward Island</option>
-<option value = "NU">Nunavut</option>
-<option value = "YT">Yukon</option>
+<option value = "NV">Nunavut</option>
+<option value = "YK">Yukon</option>
 <option value = "NT">Northwest Territories</option>
 <option value = "NL">Newfoundland and Labrador</option>
 </select>
@@ -115,10 +115,10 @@ function startTime() {
   const newfieTime = date.toLocaleString("en-US", {hour: '2-digit', hour12: true, minute:'2-digit', second:'2-digit', timeZone: "Canada/Newfoundland"});
   
   if(province == "BC"){timeZone = pacificTime;}
-  else if(province == "AB" || province == "YT" || province == "NT")
+  else if(province == "AB" || province == "YK" || province == "NT")
   {timeZone = mountainTime;}
   else if(province == "MB" || province == "SK"){timeZone = centralTime;}
-  else if(province == "ON" || province == "QC" || province == "NU")
+  else if(province == "ON" || province == "QC" || province == "NV")
   {timeZone = easternTime;}
   else if(province == "NB" || province == "NS" || province == "PEI")
   {timeZone = atlanticTime;}
